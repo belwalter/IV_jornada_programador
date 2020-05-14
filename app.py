@@ -1,16 +1,13 @@
 from flask import Flask
 from flask import render_template, jsonify, request, redirect, url_for
-from funciones_mongo import get_all, save_doc, update_doc, get_one, delete_doc
-#import json
 from button import index as prueba
-#import mercadopago
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    lista = get_all()
-    return render_template('/index.html', datos=lista)
+    #lista = get_all()
+    return render_template('/index.html')
 
 @app.route('/pagar', methods=['GET', 'POST'])
 def nuevo():
