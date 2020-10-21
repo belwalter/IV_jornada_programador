@@ -38,7 +38,7 @@ def index(req, **kwargs):
     'auto_return': 'approved'
     }
 
-    mp = mercadopago.MP("TEST-5712304049786863-091123-3595b0d23e5a59130481eb86ce3d4bf4-162697518")
+    mp = mercadopago.MP("ACCESS_TOKEN")
     #mp = mercadopago.MP("CLIENT_ID", "CLIENT_SECRET")
     mp.sandbox_mode(True)
 
