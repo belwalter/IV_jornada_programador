@@ -15,37 +15,32 @@ def index(req, **kwargs):
         {
           "title": "sdk-python",
           "quantity": 1,
-          "currency_id": "ARS",
+          # "currency_id": "ARS",
           "unit_price": 10.5
         },
         {
           "title": "otro",
           "quantity": 3,
-          "currency_id": "ARS",
+          # "currency_id": "ARS",
           "unit_price": 30.5
+        },
+        {
+          "title": "nuevo",
+          "quantity": 4,
+          # "currency_id": "ARS",
+          "unit_price": 500
         }
       ],
-   'shipments': {
-     'receiver_address':{
-        'apartment':'666',
-        'floor':'3',
-        'street_name':'belgrano',
-        'street_number':'485',
-        'zip_code':'3260'
-     }
-    },
-    'back_urls': {'pending': '', 'success': 'http://localhost:5000/', 'failure': 'http://www.google.com'},
+    'back_urls': {'pending': 'www.gmail.com', 'success': 'http://localhost:5000/', 'failure': 'http://www.google.com'},
     'auto_return': 'approved'
     }
 
-    mp = mercadopago.MP("ACCESS_TOKEN")
-    #mp = mercadopago.MP("CLIENT_ID", "CLIENT_SECRET")
-    mp.sandbox_mode(True)
+    sdk = mercadopago.SDK("ACCESS_TOKEN")
+    #mp = mercadopago.SDK("CLIENT_ID", "CLIENT_SECRET")
 
-    preferenceResult = mp.create_preference(preference)
-
-    #print(preferenceResult)
-    url = preferenceResult["response"]["init_point"]
+    preferenceResult = sdk.preference().create(preference)
+    print(preferenceResult)
+    url = preferenceResult["response"]["sandbox_init_point"]
 
     output = """
     <!doctype html>
