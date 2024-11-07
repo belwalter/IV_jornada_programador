@@ -1,18 +1,62 @@
 from flask import Flask
 from flask import render_template, jsonify, request, redirect, url_for
-from button import index as prueba
+# from button import index as prueba
+from mp_utils import generate_link
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    #lista = get_all()
-    return render_template('/index.html')
+    items = [
+        {
+          "title": "sdk-python",
+          "quantity": 1,
+          "unit_price": 10.5
+        },
+        {
+          "title": "otro",
+          "quantity": 3,
+          "unit_price": 30.5
+        },
+        {
+          "title": "nuevo",
+          "quantity": 4,
+          "unit_price": 500
+        }
+    ]
+    shipment = {
+        "cost": 1000,
+        "mode": "not_specified",
+    }
+    url = generate_link(items, shipment)
+    return render_template('/index.html', url=url)
 
-@app.route('/pagar', methods=['GET', 'POST'])
-def nuevo():
+
+@app.route('/success', methods=['GET'])
+def success():
+    print()
     """Retorna la pagina index."""
-    return redirect(prueba(''))
+    for key, value in request.args.items():
+        print("-->", key, value)
+    return jsonify("PAY SUCCESS")
+
+
+@app.route('/failure', methods=['GET'])
+def failure():
+    """Retorna la pagina index."""
+    for key, value in request.args.items():
+        print("-->", key, value)
+    return jsonify("FAILURE")
+
+
+@app.route('/pending', methods=['GET'])
+def pending():
+    """Retorna la pagina index."""
+    for key, value in request.args.items():
+        print("-->", key, value)
+    return jsonify("PENDING")
+
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port='5000', debug=True)
